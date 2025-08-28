@@ -1,0 +1,13 @@
+{
+  "project_name": "llm-agent-project",
+  "interface": ["fastapi", "streamlit", "none"],
+  "use_mcp": ["yes", "no"],
+  "llm_provider": ["openai", "local", "anthropic"],
+  "use_langgraph": ["yes", "no"],
+  "use_vectorstore": ["faiss", "chroma", "none"],
+  "use_memory": ["langchain", "redis", "none"],
+  "use_rag": ["yes", "no"],
+  "use_tools": ["yes", "no"],
+  "enable_tests": ["yes", "no"],
+  "add_examples": ["yes", "no"]
+}

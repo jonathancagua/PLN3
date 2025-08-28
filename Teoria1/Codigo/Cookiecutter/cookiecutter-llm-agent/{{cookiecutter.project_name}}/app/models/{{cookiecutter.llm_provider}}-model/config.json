@@ -1,0 +1,6 @@
+{
+  "name": "{{cookiecutter.llm_provider}}-model",
+  "type": "language-model",
+  "inputs": ["prompt"],
+  "outputs": ["completion"]
+}

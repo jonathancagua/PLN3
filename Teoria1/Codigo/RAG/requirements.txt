@@ -1,0 +1,9 @@
+sentence-transformers
+rank-bm25
+numpy
+pandas
+scikit-learn
+torch
+pinecone
+pdfplumber
+python-dotenv   # opcional, para cargar API key desde .env

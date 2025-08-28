@@ -1,0 +1,13 @@
+# Carpetas de caché
+__pycache__/
+*.pyc
+
+# Archivos de salida temporales
+output.txt
+
+# Archivos de entorno
+.env
+
+# Índices y datos temporales
+data/*.pkl
+data/*.index

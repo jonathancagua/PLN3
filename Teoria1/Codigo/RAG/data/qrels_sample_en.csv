@@ -1,0 +1,10 @@
+query,doc_id,label
+what is RAG and why is it used,RAG_Survey_GAO_p1,1
+what is RAG and why is it used,RAG_RL_Ren_p1,1
+naive advanced modular RAG paradigms,RAG_Survey_GAO_p1,1
+naive advanced modular RAG paradigms,RAG_Survey_GAO_p2,1
+what is ARENA in RAG,RAG_RL_Ren_p1,1
+what is ARENA in RAG,RAG_RL_Ren_p2,1
+how to improve transparency and traceability in RAG,RAG_RL_Ren_p1,1
+how to improve transparency and traceability in RAG,RAG_RL_Ren_p2,1
+post-retrieval improvements like reranking and context compression,RAG_Survey_GAO_p2,1
