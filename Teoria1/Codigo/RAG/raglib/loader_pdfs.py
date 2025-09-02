@@ -169,13 +169,14 @@ def pdf_to_documents(pdf_path: Path, doc_id_prefix: str = None) -> List[Document
                 continue
             docs.append(
                 Document(
-                    id=f"{base_id}_p{i}",
-                    text=text,
+                    id=f"{base_id}_p{i}",       # identificador único del documento: usa el nombre base del archivo (sin .pdf) + "_p" + número de página (ej: contrato_p3)
+                    text=text,                  # el texto ya limpio y normalizado de esa página (resultado de _clean(page.extract_text()))
                     source=str(pdf_path.name),  # nombre del PDF
                     page=i                      # número de página
                 )
             )
     return docs
+
 
 
 def folder_pdfs_to_documents(folder: Path, recursive: bool = True) -> List[Document]:

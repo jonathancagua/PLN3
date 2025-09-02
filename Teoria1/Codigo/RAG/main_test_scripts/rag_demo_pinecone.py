@@ -9,11 +9,13 @@ from raglib import RagPipeline, PineconeSearcher
 from raglib.loader_pdfs import folder_pdfs_to_documents, documents_to_chunks
 
 # 3) CARGA .env DESDE LA RAÍZ (para PINECONE_API_KEY)
+# Si lo movés a otra carpeta fija, solo cambiás el path antes de .env. 
+# Ejemplo: si lo tenés en ./config/.env: ENV_PATH = Path(__file__).resolve().parents[1] / "config" / ".env"
 ENV_PATH = Path(__file__).resolve().parents[1] / ".env"
 load_dotenv(dotenv_path=ENV_PATH, override=True)
 
 def main():
-    # --- Configuración básica ---
+    # Configuración básica
     INDEX_NAME = os.getenv("PINECONE_INDEX", "pln3-index-rag-pdfs")
     CLOUD = os.getenv("PINECONE_CLOUD", "aws")
     REGION = os.getenv("PINECONE_REGION", "us-east-1")
@@ -23,7 +25,7 @@ def main():
     if not API_KEY:
         raise RuntimeError("No encontré PINECONE_API_KEY. Revisá tu .env en la raíz del proyecto.")
 
-    # --- 1) Cargar PDFs desde ./corpus ---
+    # 1) Cargar PDFs desde ./corpus
     corpus_dir = Path("./corpus")
     if not corpus_dir.exists():
         raise FileNotFoundError("No existe la carpeta ./corpus. Creala y poné tus PDFs adentro.")
@@ -37,23 +39,24 @@ def main():
     # for d in docs[:3]:
     #     print(" -", d.id, d.source, d.page, len(d.text), "chars")
 
-    # --- 2) Chunking (usa el mismo que tu pipeline) ---
+    # 2) Chunking (usa el mismo que tu pipeline)
     chunks_map = documents_to_chunks(docs, max_tokens_chunk=300, overlap=80)
     total_chunks = sum(len(v) for v in chunks_map.values())
     print(f"[INFO] Total de chunks: {total_chunks}")
 
-    # --- 3) Pinecone (sube embeddings + metadatos) ---
+    # 3) Pinecone (sube embeddings + metadatos)
     searcher = PineconeSearcher(
         index_name=INDEX_NAME,
         model_name=MODEL,
         cloud=CLOUD,
         region=REGION,
         api_key=API_KEY,
-        namespace="v2-200tok"  # cualquier nombre válido (minúsculas, dígitos, '-')
+        namespace="v2-200tok"  # cualquier nombre válido (minúsculas, dígitos, '-')-->Sugerencia: guardá el namespace en .env para no tocar código
+                               # Si cambiás de modelo de embeddings (dimensión de vector), cambiá de índice (no solo de namespace).
     )
 
-    # Ahora no falla si la namespace no existe aún
-    searcher.clear_namespace()
+    ## NO CONCATENA, borra todo lo que hay en ese namespace de Pinecone y lo deja vacío, comentar si se busca concatenar y perservar. 
+    searcher.clear_namespace()  #=========> IMPORTANTE
 
     docs_meta = {d.id: {"source": d.source, "page": d.page} for d in docs}
     searcher.upsert_chunks(chunks_map, docs_meta)
@@ -61,7 +64,7 @@ def main():
 
     print(f"[INFO] Upsert en Pinecone completado -> índice '{INDEX_NAME}'.")
 
-    # --- 4) Armar Pipeline HÍBRIDO y consultar ---
+    # 4) Armar Pipeline HÍBRIDO y consultar 
     pipeline = RagPipeline(
         docs=docs,
         pinecone_searcher=searcher,

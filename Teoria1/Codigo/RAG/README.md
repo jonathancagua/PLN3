@@ -141,7 +141,7 @@ project/
 │  ├─ io_utils.py               # Entrada/salida JSONL y qrels
 │  └─ loader_pdfs.py            # Loader de PDFs
 │
-├─ scripts/
+├─ main_test_scripts/
 │  ├─ build_pinecone_index.py   # Ingesta a Pinecone
 │  ├─ rag_demo_pinecone.py      # Demo de consulta híbrida
 │  └─ evaluate_retrieval.py     # Evaluación

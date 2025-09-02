@@ -27,5 +27,5 @@ if __name__ == "__main__":
 
     # construir searcher y upsert
     searcher = PineconeSearcher(index_name=INDEX_NAME, model_name=MODEL, cloud=CLOUD, region=REGION)
-    searcher.upsert_chunks(chunks_map, docs_meta)
+    searcher.upsert_chunks(chunks_map, docs_meta)  #(upsert = update + insert)--->Pinecone solo pisa datos si el "id" coincide
     print("Upsert a Pinecone completado.")
