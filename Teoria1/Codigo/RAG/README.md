@@ -154,7 +154,7 @@ project/
 * **BM25 (bm25\_index.py):** búsqueda rápida por coincidencia de términos.
 * **Pinecone (vector\_pinecone.py):** búsqueda semántica por similitud de embeddings.
 * **RRF (fusion.py):** fusión robusta de rankings, evita depender de un solo motor.
-* **Cross-Encoder (reranker.py):** ajusta la lista final con precisión neural.
+* **Cross-Encoder (reranker.py):** ajusta la lista final con precisión neural. Ver: https://www.sbert.net/
 * **Pipeline (pipeline.py):** une todas las piezas y construye el contexto para el LLM.
 * **Resúmenes (rag\_summary.py):** opcional, genera resúmenes citados con OpenAI.
 * **Métricas (metrics.py):** permite comparar distintas configuraciones y medir mejora tras el re-rankeo.
