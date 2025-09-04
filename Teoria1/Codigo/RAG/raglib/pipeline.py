@@ -15,7 +15,7 @@ class RagPipeline:
     def __init__(
         self,
         docs: List[Document],
-        pinecone_searcher: Optional[PineconeSearcher] = True,
+        pinecone_searcher: Optional[PineconeSearcher] = None,
         max_tokens_chunk: int = 400,
         overlap: int = 100,
         ce_model: str = "cross-encoder/ms-marco-MiniLM-L-6-v2",
