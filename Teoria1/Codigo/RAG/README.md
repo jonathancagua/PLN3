@@ -64,7 +64,7 @@ Cada **página** se procesa como un `Document` y luego se divide en *chunks* de 
 
 ---
 
-## 5. Ingesta y construcción del índice vectorial
+## 5. Ingesta y construcción del índice vectorial --> Si de entrada se busca trabajar con un namespace especifico, hace falta agregarlo (por ejemplo: "v2-200tok", que es el que contiene el siguiente codigo). 
 
 Ejecute:
 
@@ -81,7 +81,7 @@ Este script:
 
 ---
 
-## 6. Consulta híbrida con re-ranqueo
+## 6. Consulta híbrida con re-ranqueo--> Si se usa el espacio ya generado, se requiere comentar el clear_namespace(). Este codigo contiene un namespace.
 
 Ejemplo de búsqueda:
 
