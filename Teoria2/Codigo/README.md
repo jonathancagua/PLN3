@@ -1,4 +1,3 @@
-```markdown
 # Ejemplo básico con Guardrails-AI
 
 Este es un ejemplo **básico y didáctico** que incluye el uso de la librería **guardrails-ai**.  
@@ -66,5 +65,5 @@ Sin embargo, en un entorno de producción debería **modularizarse** para mejora
 
 - [Guardrails-AI: Getting Started](https://www.guardrailsai.com/docs/getting_started/guardrails_server)  
 - [Guardrails Hub](https://hub.guardrailsai.com/)  
-```
+
 
