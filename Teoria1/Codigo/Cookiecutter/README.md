@@ -49,7 +49,7 @@ Cada carpeta está comentada a la derecha para explicar su propósito.
 
 ## Esquema de carpetas
 
-
+```
 {{ project\_name }}/
 ├─ .github/
 │  └─ workflows/              # Pipelines de CI/CD con GitHub Actions
@@ -144,7 +144,7 @@ Cada carpeta está comentada a la derecha para explicar su propósito.
 │
 └─ tmp/                       # Archivos temporales (cache, staging, etc.)
 
-
+```
 
 
 ## Resumen
