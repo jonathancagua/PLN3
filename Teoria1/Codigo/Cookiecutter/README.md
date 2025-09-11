@@ -30,7 +30,7 @@ De esta forma, cada proyecto arranca prolijo desde el día uno, con carpetas ya 
 
    ```bash
    cookiecutter path/a/tu-template (Ej: cookiecutter .\cookiecutter-llm-agent\)
-````
+```
 
 3. Contestá las preguntas (nombre del proyecto, interfaz, vectorstore, etc.).
 4. Se genera la carpeta de tu proyecto con el esqueleto ya armado.
