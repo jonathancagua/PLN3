@@ -41,13 +41,6 @@ De esta forma, cada proyecto arranca prolijo desde el día uno, con carpetas ya 
 
 El árbol de directorios depende de tus elecciones, pero en general vas a ver algo así:
 
-```
-Perfecto 🙌
-Acá te armo la versión en `.md` con **esquema de árbol** y **comentarios a la derecha**. Así queda mucho más visual y directo.
-
----
-
-```markdown
 # Estructura del Proyecto de Agentes LLM
 
 Este esqueleto se genera con Cookiecutter y varía según las opciones elegidas.  
@@ -57,7 +50,6 @@ Cada carpeta está comentada a la derecha para explicar su propósito.
 
 ## Esquema de carpetas
 
-```
 
 {{ project\_name }}/
 ├─ .github/
@@ -153,14 +145,13 @@ Cada carpeta está comentada a la derecha para explicar su propósito.
 │
 └─ tmp/                       # Archivos temporales (cache, staging, etc.)
 
-```
+
 
 
 ## Resumen
 - Las carpetas básicas (`src/`, `configs/`, `infra/`, `docs/`, etc.) se crean siempre.  
 - Algunas son condicionales según tus elecciones de Cookiecutter (`rag`, `graphs`, `vectorstore`, `memory`, `toolkits`, `mcp`, `tests`, `examples`).  
 - Este esqueleto asegura orden y escalabilidad para proyectos de agentes LLM.
-
 
 ---
 
@@ -181,7 +172,7 @@ Cada carpeta está comentada a la derecha para explicar su propósito.
 
 ## Resumen
 
-Este Cookiecutter no pretende dar una solución cerrada, sino un **punto de partida** para proyectos de agentes LLM.
+Este Cookiecutter no pretende dar una solución cerrada, sino un **punto de partida sólido** para proyectos de agentes LLM.
 Con un par de preguntas iniciales te deja listo un esqueleto de carpetas limpio y ordenado.
 
 
