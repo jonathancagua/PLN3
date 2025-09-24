@@ -1,0 +1,291 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "model": "embeddinggemma:300m"
+      },
+      "type": "@n8n/n8n-nodes-langchain.embeddingsOllama",
+      "typeVersion": 1,
+      "position": [
+        2320,
+        672
+      ],
+      "id": "8a9f8219-1c37-4347-a5b1-c9ae8d26a278",
+      "name": "Embeddings Ollama",
+      "credentials": {
+        "ollamaApi": {
+          "id": "pCRIXbkqAuFmMZ4F",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {}
+          ]
+        }
+      },
+      "id": "9b5b8466-106f-4980-8a15-177302e5c365",
+      "name": "Get Articles Daily",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "position": [
+        1344,
+        -80
+      ],
+      "typeVersion": 1.2
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "id": "d45ad321-0ff1-47fb-841f-709dbec7caf2",
+      "name": "News reader AI",
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "position": [
+        1472,
+        464
+      ],
+      "typeVersion": 1.9
+    },
+    {
+      "parameters": {
+        "url": "https://www.lanacion.com.ar/arc/outboundfeeds/rss/?outputType=xml",
+        "options": {}
+      },
+      "id": "29034a85-db8f-4613-99b4-df34b93a8212",
+      "name": "Read RSS News Feeds",
+      "type": "n8n-nodes-base.rssFeedRead",
+      "position": [
+        1536,
+        -80
+      ],
+      "typeVersion": 1.1
+    },
+    {
+      "parameters": {
+        "content": ""
+      },
+      "id": "80d3f50a-3bd6-49de-98b7-9604beb5ebaa",
+      "name": "Sticky Note5",
+      "type": "n8n-nodes-base.stickyNote",
+      "position": [
+        64,
+        -240
+      ],
+      "typeVersion": 1
+    },
+    {
+      "parameters": {
+        "model": "llama3.2:latest",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatOllama",
+      "typeVersion": 1,
+      "position": [
+        1456,
+        688
+      ],
+      "id": "cc98065c-e4be-4412-9f4e-c107e3f583a7",
+      "name": "Ollama Chat Model",
+      "credentials": {
+        "ollamaApi": {
+          "id": "pCRIXbkqAuFmMZ4F",
+          "name": "Ollama account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.chatTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        1216,
+        464
+      ],
+      "id": "ecbff934-7de0-4e0d-8c2e-9d01ea1409f4",
+      "name": "When chat message received",
+      "webhookId": "5b1168ee-1a4e-489c-a687-ac6772900b10"
+    },
+    {
+      "parameters": {
+        "mode": "retrieve-as-tool",
+        "toolDescription": "Utiliza el knowledgebase para realizar busquedas sobre noticias en Argentina",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        1552,
+        784
+      ],
+      "id": "5066b6db-c0c2-4f20-b56d-796ff612e1df",
+      "name": "Simple Vector Store"
+    },
+    {
+      "parameters": {
+        "jsonMode": "expressionData",
+        "jsonData": "={\n  title: {{ $json.title }},\n  content:{{ $json.content }},\npublishedDate: {{ $json.pubDate }}\n}\n",
+        "options": {}
+      },
+      "type": "@n8n/n8n-nodes-langchain.documentDefaultDataLoader",
+      "typeVersion": 1.1,
+      "position": [
+        2144,
+        176
+      ],
+      "id": "656b9827-cef6-45a5-b535-c227364dc400",
+      "name": "Default Data Loader"
+    },
+    {
+      "parameters": {
+        "mode": "insert",
+        "memoryKey": {
+          "__rl": true,
+          "mode": "list",
+          "value": "vector_store_key"
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.vectorStoreInMemory",
+      "typeVersion": 1.3,
+      "position": [
+        2224,
+        -64
+      ],
+      "id": "8d78f1a3-13dc-4a46-95df-891b367d8a22",
+      "name": "Simple Vector Store1"
+    },
+    {
+      "parameters": {
+        "maxItems": 10
+      },
+      "type": "n8n-nodes-base.limit",
+      "typeVersion": 1,
+      "position": [
+        1872,
+        -64
+      ],
+      "id": "4929ce05-0ae9-42e0-96b9-37a70f34b0b8",
+      "name": "Limit"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Embeddings Ollama": {
+      "ai_embedding": [
+        [
+          {
+            "node": "Simple Vector Store",
+            "type": "ai_embedding",
+            "index": 0
+          },
+          {
+            "node": "Simple Vector Store1",
+            "type": "ai_embedding",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "News reader AI": {
+      "main": [
+        []
+      ]
+    },
+    "Get Articles Daily": {
+      "main": [
+        [
+          {
+            "node": "Read RSS News Feeds",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Read RSS News Feeds": {
+      "main": [
+        [
+          {
+            "node": "Limit",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Ollama Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "News reader AI",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "When chat message received": {
+      "main": [
+        [
+          {
+            "node": "News reader AI",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Simple Vector Store": {
+      "ai_tool": [
+        [
+          {
+            "node": "News reader AI",
+            "type": "ai_tool",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Default Data Loader": {
+      "ai_document": [
+        [
+          {
+            "node": "Simple Vector Store1",
+            "type": "ai_document",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Limit": {
+      "main": [
+        [
+          {
+            "node": "Simple Vector Store1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "50790a3e-c1bd-4e60-bfd1-ac7a8c21bbfb",
+  "meta": {
+    "instanceId": "569def2b79aa21fee4267a5442eabf1338bf2b3e212c56245988bf75ce5ecc11"
+  },
+  "id": "KCXst5sgMJKw8PWA",
+  "tags": []
+}

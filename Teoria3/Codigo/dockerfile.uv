@@ -1,0 +1,43 @@
+# ---- Stage 1: Builder ----
+FROM python:3.11-slim AS builder
+
+WORKDIR /app
+
+# Install dependencies required for uv
+RUN apt-get update && apt-get install -y --no-install-recommends \
+      curl ca-certificates \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download the latest installer
+ADD https://astral.sh/uv/install.sh /uv-installer.sh
+
+# Run the installer then remove it
+RUN sh /uv-installer.sh && rm /uv-installer.sh
+
+# Ensure the installed binary is on the `PATH`
+ENV PATH="/root/.local/bin/:$PATH"
+
+# Copy requirements first for caching
+COPY requirements.txt .
+
+# Install dependencies into /install
+RUN uv pip install --system --target=/install -r requirements.txt
+
+# ---- Stage 2: Final ----
+FROM python:3.11-slim
+
+WORKDIR /app
+
+# Copy installed dependencies
+COPY --from=builder /install /usr/local
+
+# Copy project files
+COPY main.py .
+COPY src ./src
+
+# Environment configs
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1
+
+# Run the app
+CMD ["python", "main.py"]
